@@ -10,7 +10,7 @@ export const signup = async (req, res) => {
 
   try {
     const [rows] = await db.execute(
-      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+      'INSERT INTO user (name, email, password) VALUES (?, ?, ?)',
       [name, email, hashed]
     );
     res.status(201).json({ message: 'User created successfully' });
@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const [users] = await db.execute('SELECT * FROM users WHERE email = ?', [email]);
+  const [users] = await db.execute('SELECT * FROM user WHERE email = ?', [email]);
 
   if (!users.length) return res.status(400).json({ error: 'User not found' });
 
